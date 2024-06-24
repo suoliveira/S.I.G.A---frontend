@@ -1,28 +1,34 @@
 <template>
-   <div class="app">
+    <div class="adm">
     <section>
       <div class="div-left">
-        <img src="../assets/image/1x/Ativo 2.png" width="200px">
         <form @submit.prevent="handleSubmit">
-          <div class="div-login">
-            <h1>Login</h1>
+          <div class="div-register">
+            <h1>Cadastrar</h1>
           </div>
 
           <div class="div-input">
-            <div class="input">
-              <input type="text" placeholder="Usuário" v-model="username" required>
-            </div>
-            <div class="input">
-              <input type="password" placeholder="Senha" v-model="password" required>
-            </div>
-          </div>
+            <ul>
+                <button class="btn" type="button">GESTÃO</button>
+                <button class="btn" type="button">DEGP</button>
+                <button class="btn" type="button">RACI</button>
+            </ul>
 
-          <button type="submit">Entrar</button>
+                <input type="text" placeholder="Usuário" name="username" required>
+
+                <input type="text" placeholder="Nome completo" name="name" required>
+
+                <input type="text" placeholder="CPF" name="cpf" required>
+        
+                <input type="password" placeholder="Senha" required>
+        
+                <button type="submit" name="botao" id="botao" class="botao">Cadastrar</button>
+            </div>
         </form>
       </div>
 
       <div class="div-right">
-        <img src="../assets/image/fundo3.png" alt="">
+        <img src="../assets/image/fundo2.png" alt="">
       </div>
     </section>
   </div>
@@ -30,32 +36,11 @@
 
 <script>
 export default {
-  name: 'LoginPage',
-  data() {
-    return {
-      username: '',
-      password: ''
-    };
-  },
-  methods: {
-    handleSubmit() {
-      
-      console.log('Username:', this.username);
-      console.log('Password:', this.password);
-    }
-  }
-};
+  name: 'AdmPage',
+}
 </script>
 
-
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap');
-@font-face {
-    font-family: Rolie Twily;
-    src: url(/siga/fontes/Rolie\ Twily.otf);
-}
-
 *{
     margin: 0;
     padding: 0;
@@ -67,7 +52,7 @@ export default {
     color: white;
 }
 
-.app{
+.adm{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,9 +66,8 @@ section{
     display: flex;
     flex-direction: row;
     position: absolute; 
-    
+    background-color: transparent;
 }
-
 .div-left{
     display: flex;
     flex-direction: column;
@@ -93,18 +77,7 @@ section{
     padding:50px;
 }
 
-img{
-    padding: 30px 0px;
-}
-
-
-form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.div-login{
+.div-cadastro{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -123,16 +96,16 @@ h1::before{
     width: 0%; 
     transition: width 0.3s ease; 
     border-radius: 25px;
-    background: #EA5058;
+    background: #546F50;
 }
 
 section:hover h1::before{ 
     width: 100%;
 }
 
-
 .div-input{
-    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 input{
@@ -143,53 +116,70 @@ input{
     border: 2px solid #08090B;
     color: #fff; 
     border-radius:5px ;
-    margin: 20px 0; 
-
+    margin: 10px 0; 
     outline: none; 
 
     font-size: 18px;
 }
 
-input::placeholder{
-    color: #5f5f5f; 
-}
+ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
-button{
-    border: none;
-    background-color: #EA5058;
-    border-radius: 4px;
-    padding: 15px;
+
     width: 100%;
-    margin: 10px 0 0px 0px;
+    height: 100%;
+    margin-top: 10px;
+    padding: 20px;
 
-    font-size: 20px;
-}
-
-button a{
     color: #fff;
+    border: 2px solid #08090B;
+    background-color: #242424;
+    border-radius: 4px;
 }
 
-button:hover{
+.btn{
+    border: none;
     background-color: #546F50;
+    border-radius: 4px;
+    width: 80px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.btn.active{
+    background-color: #EA5058;
+}
+.btn:hover{
+    background-color: #d0666b;
     color: #fff;
     cursor: pointer;
     transition: 0.2s;
 }
 
-button:hover a{
+.botao{
+    border: none;
+    background-color: #546F50;
+    border-radius: 4px;
+    padding: 15px;
+    width: 100%;
+    margin: 10px 0 0px 0px;
+    font-size: 20px;
+}
+
+.botao a{
     color: #fff;
 }
 
-.div-right{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.botao:hover{
+    background-color: #EA5058;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
-    color: #EA5058;
-
-    background-color: #546F50;
-    height: 700px;
-    width: 500px;
+.botao:hover a{
+    color: #fff;
 }
 </style>
