@@ -8,12 +8,12 @@
           </div>
 
           <div class="div-input">
-                <input type="text" placeholder="Usuário" name="username" required>
-                <input type="text" placeholder="Nome completo" name="name" required>
-                <input type="text" placeholder="CPF" name="cpf" required>
-                <input type="text" placeholder="Curso" name="course" required>
-                <input type="password" placeholder="Senha" required>
-                <button type="submit" name="botao" id="botao" class="botao">Cadastrar</button>
+                <input type="text" v-model="this.formData.username" placeholder="Usuário" name="username" required>
+                <input type="text" v-model="this.formData.name" placeholder="Nome completo" name="name" required>
+                <input type="text" v-model="this.formData.cpf" placeholder="CPF" name="cpf" required>
+                <input type="text" v-model="this.formData.course" placeholder="Curso" name="course" required>
+                <input type="password" v-model="this.formData.password" placeholder="Senha" required>
+                <button type="submit" name="botao" id="botao" class="botao" @click="register()">Cadastrar</button>
             </div>
         </form>
       </div>
@@ -26,8 +26,25 @@
 </template>
 
 <script>
+import axios from '../services/api';
 export default {
     name: 'RaciRegisterPage',
+    data() {
+        return {
+            formData: {
+                username: '',
+                name: '',
+                cpf: '',
+                course: '',
+                password: ''
+            }
+        }
+    },
+    methods: {
+        async register(){
+            await axios.post('/raci', this.formData)
+        }
+    }
 }
 </script>
 

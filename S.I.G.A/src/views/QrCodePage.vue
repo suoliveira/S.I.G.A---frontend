@@ -10,6 +10,7 @@
 import QRCode from 'qrcode'
 
 export default {
+   name: 'QrCodePage',
   data() {
     return {
       text: ''

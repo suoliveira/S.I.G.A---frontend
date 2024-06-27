@@ -1,15 +1,24 @@
 <template>
-    <div class="raci-register">
+    <div class="adm-register">
     <section>
       <div class="div-left">
         <form @submit.prevent="handleSubmit">
           <div class="div-register">
-            <h1>Cadastrar Visitante</h1>
+            <h1>Cadastrar</h1>
           </div>
 
           <div class="div-input">
-                <input type="text" v-model="this.formData.name" placeholder="Nome completo" name="name" required>
-                <input type="text" v-model="this.formData.cpf" placeholder="CPF" name="cpf" required>
+            <ul>
+                <button class="btn" type="button" @click="this.formData.role = 'GESTAO'">GESTÃO</button>
+                <button class="btn" type="button" @click="this.formData.role = 'DEGP'">DEGP</button>
+                <button class="btn" type="button" @click="this.formData.role = 'RACI'">RACI</button>
+            </ul>
+
+                <input type="text" placeholder="Usuário" v-model="this.formData.username" required>
+                <input type="text" placeholder="Nome completo" v-model="this.formData.name" required>
+                <input type="text" placeholder="CPF" v-model="this.formData.cpf" required>
+                <input type="password" placeholder="Senha" v-model="this.formData.password" required>
+        
                 <button type="submit" name="botao" id="botao" class="botao" @click="register()">Cadastrar</button>
             </div>
         </form>
@@ -25,20 +34,23 @@
 <script>
 import axios from '../services/api';
 export default {
-    name: 'SecurityRegisterPage',
-    data() {
-        return {
-            formData: {
-                name: '',
-                cpf: '',
-            }
-        }
-    },
-    methods: {
-        async register() {
-            await axios.post('/temporaryAccess', this.formData)
+  name: 'AdmRegisterPage',
+  data(){
+    return{
+        formData:{
+            username : "",
+            name: "",
+            cpf: "",
+            password: "",
+            role: ""
         }
     }
+  },
+  methods:{ 
+    async register(){
+        await axios.post('/adm', this.formData);
+    }
+  }
 }
 </script>
 
@@ -54,7 +66,7 @@ export default {
     color: white;
 }
 
-.raci-register{
+.adm-register{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,6 +121,7 @@ section:hover h1::before{
     display: flex;
     flex-direction: column;
 }
+
 input{
     background-color: transparent;
     padding: 20px;
@@ -118,63 +131,69 @@ input{
     color: #fff; 
     border-radius:5px ;
     margin: 10px 0; 
-
     outline: none; 
 
     font-size: 18px;
 }
 
-.input-sexo{
-    background-color: transparent;
+ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
     padding: 20px;
-    border: none;
+
+    color: #fff;
     border: 2px solid #08090B;
-    border-radius:5px ;
-    font-size: 18px;
+    background-color: #242424;
+    border-radius: 4px;
 }
 
-button{
+.btn{
+    border: none;
+    background-color: #546F50;
+    border-radius: 4px;
+    width: 80px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.btn.active{
+    background-color: #EA5058;
+}
+.btn:hover{
+    background-color: #d0666b;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.botao{
     border: none;
     background-color: #546F50;
     border-radius: 4px;
     padding: 15px;
     width: 100%;
     margin: 10px 0 0px 0px;
-
     font-size: 20px;
 }
 
-button a{
+.botao a{
     color: #fff;
 }
 
-button:hover{
+.botao:hover{
     background-color: #EA5058;
     color: #fff;
     cursor: pointer;
     transition: 0.2s;
 }
 
-button:hover a{
+.botao:hover a{
     color: #fff;
 }
-
-.div-right{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    color: #EA5058;
-
-    background-color: #546F50;
-    height: 700px;
-    width: 500px;
-}
-
-img{
-    height: 100%;
-    width: 100%;
-}
-
 </style>

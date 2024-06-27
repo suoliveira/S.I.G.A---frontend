@@ -10,21 +10,15 @@
             <table>
                 <tr>
                     <th>Nome</th>
-                    <th>Acesso</th>
                     <th>Data</th>
+                    <th>Acesso</th>
                     <th>Tipo</th>
                 </tr>
-                <tr>
-                    <td>Matheus AAAAAA BBBBBBB</td>
-                    <td>Entrada</td>
-                    <td>17:00</td>
-                    <td>Estudante</td>
-                </tr>
-                <tr>
-                    <td>Matheus AAAAAA BBBBBBB</td>
-                    <td>Saida</td>
-                    <td>19:00</td>
-                    <td>Estudante</td>
+                <tr v-for="(user, i) in this.users" :key="i">
+                    <td>{{user.user[0].name}}</td>
+                    <td>{{user.date}}</td>
+                    <td>{{user.isinside==true?"entrada":"saida"}}</td>
+                    <td>{{user.user[0].role}}</td>
                 </tr>
             </table>
         </div>
@@ -34,8 +28,25 @@
 </template>
 
 <script>
+import axios from "../services/api"
+
 export default {
     name: 'ManagementPage',
+    data(){
+        return{
+            users:[]
+        }
+    },
+    methods:{
+        async getUsers(){
+            const response = await axios.get("/manager")
+            this.users = response.data.access
+            console.log(this.users)
+        }
+    },
+    mounted(){
+        this.getUsers()
+    }
 }
 </script>
 

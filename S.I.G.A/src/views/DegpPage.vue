@@ -9,19 +9,14 @@
         <div class="tabela">
             <table>
                 <tr>
-                    <th>Nome</th>
-                    <th>Acesso</th>
+                    <th>Nome</th> 
                     <th>Data</th>
+                    <th>Acesso</th>
                 </tr>
-                <tr>
-                    <td>Matheus AAAAAA BBBBBBB</td>
-                    <td>Entrada</td>
-                    <td>17:00</td>
-                </tr>
-                <tr>
-                    <td>Matheus AAAAAA BBBBBBB</td>
-                    <td>Saida</td>
-                    <td>19:00</td>
+                <tr v-for="(employee, i) in this.employees" :key="i">
+                    <td>{{employee.user[0].name}}</td>
+                    <td>{{employee.date}}</td>
+                    <td>{{employee.isinside==true?"entrada":"saida"}}</td>
                 </tr>
             </table>
         </div>
@@ -37,8 +32,25 @@
 </template>
 
 <script>
+import axios from "../services/api"
+
 export default {
     name: 'DegpPage',
+    data(){
+        return{
+            employees:[]
+        }
+    },
+    methods:{
+        async getEmployees(){
+            const response = await axios.get("/degp/access")
+            this.employees = response.data.access
+            console.log(this.employees)
+        }
+    }, 
+    mounted(){
+        this.getEmployees()
+    }
 }
 </script>
 

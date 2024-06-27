@@ -10,22 +10,18 @@
             <table>
                 <tr>
                     <th>Nome</th>
-                    <th>Acesso</th>
+                    <th>CPF</th>  
                     <th>Data</th>
+                    <th>Acesso</th>
+                  
                     <th class="editar-acesso">Editar acesso</th>
                 </tr>
-                <tr>
-                    <td>Matheus AAAAAA BBBBBBB</td>
-                    <td>Entrada</td>
-                    <td>15-01-2024 17:00</td>
-                    <td>
-                        <button class="btn-remover">Remover</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Matheus AAAAAA BBBBBBB</td>
-                    <td>Saida</td>
-                    <td>15-01-2024 19:00</td>
+                <tr v-for="(visitor, i) in this.visitors" :key="i">
+                    <td>{{visitor.user[0].name}}</td>
+                    <td>{{visitor.user[0].cpf}}</td>
+                    <td>{{visitor.date}}</td>
+                    <td>{{visitor.isinside==true?"entrada":"saída"}}</td>
+        
                     <td>
                         <button class="btn-remover">Remover</button>
                     </td>
@@ -44,8 +40,25 @@
 </template>
 
 <script>
+import axios from "../services/api"
+
 export default {
-    name: 'RaciPage',
+    name: 'SecurityPage',
+    data(){
+        return{
+            visitors:[]
+        }
+    },
+    methods:{
+        async getVisitors(){
+            const response = await axios.get("/temporaryAccess")
+            this.visitors = response.data.access
+            console.log(this.visitors)
+        }
+    },
+    mounted(){
+        this.getVisitors()
+    }
 }
 </script>
 

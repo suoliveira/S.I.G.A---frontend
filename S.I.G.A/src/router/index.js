@@ -8,6 +8,7 @@ import RaciRegisterPage from '@/views/RaciRegisterPage.vue';
 import SecurityPage from '@/views/SecurityPage.vue';
 import SecurityRegisterPage from '@/views/SecurityRegisterPage.vue';
 import AdmPage from '@/views/AdmPage.vue';
+import AdmRegisterPage from '@/views/AdmRegisterPage.vue';
 import QrCodePage from '@/views/QrCodePage.vue';
 
 
@@ -57,6 +58,11 @@ const routes = [
     path: '/administracao',
     component: AdmPage,
   },
+  {
+    name: "admRegisterScreen",
+    path: "/registrar-administracao",
+    component: AdmRegisterPage,
+  }, 
   {
     name: 'qrCodeScreen',
     path: '/acesso',

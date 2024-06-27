@@ -10,10 +10,10 @@
 
           <div class="div-input">
             <div class="input">
-              <input type="text" placeholder="Usuário" v-model="username" required>
+              <input type="text" v-model="this.formData.username" placeholder="Usuário" required>
             </div>
             <div class="input">
-              <input type="password" placeholder="Senha" v-model="password" required>
+              <input type="password" v-model="this.formData.password" placeholder="Senha" required>
             </div>
           </div>
 
@@ -29,19 +29,20 @@
 </template>
 
 <script>
+import axios from "../services/api"
 export default {
   name: 'LoginPage',
   data() {
     return {
-      username: '',
-      password: ''
-    };
+      formData: {
+        username: '',
+        password: ''
+      }
+    }
   },
   methods: {
-    handleSubmit() {
-      
-      console.log('Username:', this.username);
-      console.log('Password:', this.password);
+    async register(){
+
     }
   }
 };

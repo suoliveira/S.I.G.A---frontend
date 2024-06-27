@@ -10,21 +10,15 @@
             <table>
                 <tr>
                     <th>Nome</th>
-                    <th>Acesso</th>
-                    <th>Data</th>
                     <th>Curso</th>
+                    <th>Data</th>
+                    <th>Acesso</th>
                 </tr>
-                <tr>
-                    <td>Matheus AAAAAA BBBBBBB</td>
-                    <td>Entrada</td>
-                    <td>17:00</td>
-                    <td>cco</td>
-                </tr>
-                <tr>
-                    <td>Matheus AAAAAA BBBBBBB</td>
-                    <td>Saida</td>
-                    <td>19:00</td>
-                    <td>cco</td>
+                <tr v-for="(student, i) in this.students" :key="i">
+                    <td>{{student.user[0].name}}</td>
+                    <td>{{student.user[0].course}}</td>
+                    <td>{{student.date}}</td>
+                    <td>{{student.isinside==true?"entrada":"saida"}}</td>
                 </tr>
             </table>
         </div>
@@ -40,8 +34,25 @@
 </template>
 
 <script>
+import axios from "../services/api"
+
 export default {
     name: 'RaciPage',
+    data(){
+        return{
+            students:[]
+        }
+    },
+    methods:{
+        async getStudents(){
+            const response = await axios.get("/raci/access")
+            this.students = response.data.access
+            console.log(this.students)
+        }
+    },
+    mounted(){
+        this.getStudents()
+    }
 }
 </script>
 

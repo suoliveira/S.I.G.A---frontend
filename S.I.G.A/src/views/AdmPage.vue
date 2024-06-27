@@ -1,51 +1,66 @@
 <template>
-    <div class="adm">
-    <section>
-      <div class="div-left">
-        <form @submit.prevent="handleSubmit">
-          <div class="div-register">
-            <h1>Cadastrar</h1>
-          </div>
+<div class="adm-page">
+    <div class="container">
+        <div class="icone">
+            <img src="../assets/image/1x/Ativo 1.png" class="logo">
+            <h2>Servidores</h2>
+        </div>
 
-          <div class="div-input">
-            <ul>
-                <button class="btn" type="button" @click="selectButton('gestao')">GESTÃO</button>
-                <button class="btn" type="button" @click="selectButton('degp')">DEGP</button>
-                <button class="btn" type="button" @click="selectButton('raci')">RACI</button>
-            </ul>
+        <div class="tabela">
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Role</th>
+                    <th class="editar-acesso">Editar acesso</th>
+                </tr>
+                <tr v-for="(employee,i) in this.employees" :key="i" >
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.cpf}}</td>
+                    <td>{{employee.role}}</td>
+            
+                    <td>
+                        <button class="btn-remover">Remover</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-                <input type="text" placeholder="Usuário" name="username" required>
-
-                <input type="text" placeholder="Nome completo" name="name" required>
-
-                <input type="text" placeholder="CPF" name="cpf" required>
-        
-                <input type="password" placeholder="Senha" required>
-        
-                <button type="submit" name="botao" id="botao" class="botao">Cadastrar</button>
-            </div>
-        </form>
-      </div>
-
-      <div class="div-right">
-        <img src="../assets/image/fundo2.png" alt="">
-      </div>
-    </section>
-  </div>
+        <div class="adicionar">
+            <router-link to="registrar-administracao"> 
+                <button class="btn-adicionar"><img src="../assets/image/icone-adicionar-botao.png" class="img-adicionar"></button>
+            </router-link>
+        </div>
+    </div>
+</div>
+  
 </template>
 
 <script>
+import axios from "../services/api"
+
 export default {
-  name: 'AdmPage',
-  data(){
-    return{
-        selectButton: ""
+    name: 'AdmPage',
+    data(){
+        return{
+            employees:[]
+        }
+    },
+    methods:{
+        async getEmployees(){
+            const response = await axios.get("/adm")
+            this.employees = response.data.users
+            console.log(this.employees)
+        }
+    },
+    mounted(){
+        this.getEmployees()
     }
-  }
 }
 </script>
 
 <style scoped>
+
 *{
     margin: 0;
     padding: 0;
@@ -54,137 +69,131 @@ export default {
     font-family: "Work Sans", sans-serif;
     font-weight: 400;
     font-style: normal;
-    color: white;
 }
 
-.adm{
+.adm-page{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
     width: 100vw;
-    height: 100vh;
     background-color: #08090B;
 
 }
 
-section{
-    display: flex;
-    flex-direction: row;
-    position: absolute; 
-    background-color: transparent;
-}
-.div-left{
+.container{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 70%;
+    background-color: #242424;
+    border-radius: 20px;
+
+}
+
+.icone{
+    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding: 30px;
+
+    width: 100%;
+
+    border-radius: 20px 20px 0 0;
+
+    color: #fff;
     background-color: #242424;
-    padding:50px;
+}
+h2{
+    padding-left: 20px;
 }
 
-.div-cadastro{
-    display: flex;
-    flex-direction: column;
+.logo{
+    width: 50px;  
+    height: 50px; 
+}
+
+
+.tabela{
+    background-color: #fff;
+
+    border-radius: 20px 20px 0 0 ;
+    padding: 30px;
+    width: 100%;           
+    height: 500px;
+    box-sizing: border-box;  
+}
+
+.container .tabela table{
     width: 100%;
+    height: 100;
+    border-collapse: collapse;
 }
 
-h1{
-    position: relative;
-    padding: 20px 0px;
-}
-
-h1::before{ 
-    content: " ";
-    position: absolute;
-    height: 6px;
-    bottom: -3px;
-    width: 0%; 
-    transition: width 0.3s ease; 
-    border-radius: 25px;
-    background: #546F50;
-}
-
-section:hover h1::before{ 
-    width: 100%;
-}
-
-.div-input{
+.container table tr {
     display: flex;
-    flex-direction: column;
-}
-
-input{
-    background-color: transparent;
-    padding: 20px;
-    padding-right: 100px;
-    border: none;
-    border: 2px solid #08090B;
-    color: #fff; 
-    border-radius:5px ;
-    margin: 10px 0; 
-    outline: none; 
-
-    font-size: 18px;
-}
-
-ul{
-    display: flex;
-    flex-direction: row;
     justify-content: space-between;
-
-
-    width: 100%;
-    height: 100%;
-    margin-top: 10px;
-    padding: 20px;
-
-    color: #fff;
-    border: 2px solid #08090B;
-    background-color: #242424;
-    border-radius: 4px;
+    align-items: center;
+    width: 100%; 
+    background-color: #faf6f6;
+}
+.editar-acesso{
+    display: flex;
+    justify-content: center;
+}
+th{
+    background-color: #08090B;
+    border: 1px solid #ccc;
+    border-color: #fff;
+    color: white;
+}
+.container table th,
+.container table td {
+    flex: 1; 
+    text-align: left; 
+    padding: 8px; 
 }
 
-.btn{
+.btn-remover{
+    width: 100%;
+    height: 30px;
     border: none;
     background-color: #546F50;
-    border-radius: 4px;
-    width: 80px;
-    padding: 10px;
-    font-size: 15px;
+    color: white;
+    border-radius: 20px;
 }
-
-.btn.active{
-    background-color: #EA5058;
-}
-.btn:hover{
-    background-color: #d0666b;
-    color: #fff;
-    cursor: pointer;
+.btn-remover:hover{
     transition: 0.2s;
+    background-color: #EA5058;
+    color: #08090B;
+    cursor: pointer;
+
 }
 
-.botao{
-    border: none;
-    background-color: #546F50;
-    border-radius: 4px;
-    padding: 15px;
+.adicionar{
+    padding: 30px;
+    display: flex;
+    justify-content: right;
     width: 100%;
-    margin: 10px 0 0px 0px;
-    font-size: 20px;
+    background-color: #fff;
+    border-radius: 0 0 20px 20px;
 }
 
-.botao a{
-    color: #fff;
-}
-
-.botao:hover{
-    background-color: #EA5058;
-    color: #fff;
+.btn-adicionar{
+    border: none;
+    background-color: transparent;
     cursor: pointer;
-    transition: 0.2s;
+    transition:  0.35s ease;
 }
-
-.botao:hover a{
-    color: #fff;
+.img-adicionar{
+    width: 40px;  
+    height: 40px; 
+}
+.btn-adicionar :hover{
+    transition:  0.2s;
+    transform: scale(1.2);
 }
 </style>

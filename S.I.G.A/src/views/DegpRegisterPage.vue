@@ -8,15 +8,15 @@
           </div>
 
           <div class="div-input">
-                <input type="text" placeholder="Usuário" name="username" required>
+                <input type="text" placeholder="Usuário" name="username" v-model="this.formData.username" required>
 
-                <input type="text" placeholder="Nome completo" name="name" required>
+                <input type="text" placeholder="Nome completo" name="name" v-model="this.formData.name" required>
 
-                <input type="text" placeholder="CPF" name="cpf" required>
+                <input type="text" placeholder="CPF" name="cpf" v-model="this.formData.cpf" required>
         
-                <input type="password" placeholder="Senha" required>
+                <input type="password" placeholder="Senha" v-model="this.formData.password" required>
         
-                <button type="submit" name="botao" id="botao" class="botao">Cadastrar</button>
+                <button type="submit" name="botao" id="botao" class="botao" @click="register()">Cadastrar</button>
             </div>
         </form>
       </div>
@@ -29,8 +29,24 @@
 </template>
 
 <script>
+import axios from '../services/api';
 export default {
     name: 'DegpRegisterPage',
+    data() {
+        return {
+            formData: {
+                username: '',
+                name: '',
+                cpf: '',
+                password: ''
+            }
+        }
+    },
+    methods:{
+        async register(){
+            await axios.post('/degp', this.formData);
+        }
+    }
 }
 </script>
 
