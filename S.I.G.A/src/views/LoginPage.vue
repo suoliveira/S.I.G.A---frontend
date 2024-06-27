@@ -5,7 +5,7 @@
         <img src="../assets/image/1x/Ativo 2.png" width="200px">
         <form @submit.prevent="handleSubmit">
           <div class="div-login">
-            <h1>Login</h1>
+            <h1>LOGIN</h1>
           </div>
 
           <div class="div-input">
@@ -51,145 +51,139 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap');
+
 @font-face {
-    font-family: Rolie Twily;
-    src: url(/siga/fontes/Rolie\ Twily.otf);
+  font-family: Rolie Twily;
+  src: url(/siga/fontes/Rolie\ Twily.otf);
 }
 
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: "Work Sans", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: white;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
 }
 
 .app{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    background-color: #08090B;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #08090B;
 }
 
 section{
-    display: flex;
-    flex-direction: row;
-    position: absolute; 
-    
+  display: flex;
+  flex-direction: row;
+  position: absolute; 
 }
 
 .div-left{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #242424;
-    padding:50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #242424;
+  padding:50px;
 }
 
 img{
-    padding: 30px 0px;
+  padding: 30px 0px;
 }
 
 
 form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .div-login{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 h1{
-    position: relative;
-    padding: 20px 0px;
+  position: relative;
+  padding: 20px 0px;
 }
 
 h1::before{ 
-    content: " ";
-    position: absolute;
-    height: 6px;
-    bottom: -3px;
-    width: 0%; 
-    transition: width 0.3s ease; 
-    border-radius: 25px;
-    background: #EA5058;
+  content: " ";
+  position: absolute;
+  height: 6px;
+  bottom: -3px;
+  width: 0%; 
+  transition: width 0.3s ease; 
+  border-radius: 25px;
+  background: #EA5058;
 }
 
 section:hover h1::before{ 
-    width: 100%;
+  width: 100%;
 }
 
 
 .div-input{
-    width: 100%;
+  width: 100%;
 }
 
 input{
-    background-color: transparent;
-    padding: 20px;
-    padding-right: 100px;
-    border: none;
-    border: 2px solid #08090B;
-    color: #fff; 
-    border-radius:5px ;
-    margin: 20px 0; 
-
-    outline: none; 
-
-    font-size: 18px;
+  background-color: transparent;
+  padding: 20px;
+  padding-right: 100px;
+  border: none;
+  border: 2px solid #08090B;
+  color: #fff; 
+  border-radius:5px ;
+  margin: 20px 0; 
+  outline: none; 
+  font-size: 18px;
 }
 
 input::placeholder{
-    color: #5f5f5f; 
+  color: #5f5f5f; 
 }
 
 button{
-    border: none;
-    background-color: #EA5058;
-    border-radius: 4px;
-    padding: 15px;
-    width: 100%;
-    margin: 10px 0 0px 0px;
-
-    font-size: 20px;
+  border: none;
+  background-color: #EA5058;
+  border-radius: 4px;
+  padding: 15px;
+  width: 100%;
+  margin: 10px 0 0px 0px;
+  font-size: 20px;
 }
 
 button a{
-    color: #fff;
+  color: #fff;
 }
 
 button:hover{
-    background-color: #546F50;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.2s;
+  background-color: #546F50;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 button:hover a{
-    color: #fff;
+  color: #fff;
 }
 
 .div-right{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    color: #EA5058;
-
-    background-color: #546F50;
-    height: 700px;
-    width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #EA5058;
+  background-color: #546F50;
+  height: 700px;
+  width: 500px;
 }
 </style>

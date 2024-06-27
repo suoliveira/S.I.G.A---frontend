@@ -9,9 +9,9 @@
 
           <div class="div-input">
             <ul>
-                <button class="btn" type="button">GESTÃO</button>
-                <button class="btn" type="button">DEGP</button>
-                <button class="btn" type="button">RACI</button>
+                <button class="btn" type="button" @click="selectButton('gestao')">GESTÃO</button>
+                <button class="btn" type="button" @click="selectButton('degp')">DEGP</button>
+                <button class="btn" type="button" @click="selectButton('raci')">RACI</button>
             </ul>
 
                 <input type="text" placeholder="Usuário" name="username" required>
@@ -37,6 +37,11 @@
 <script>
 export default {
   name: 'AdmPage',
+  data(){
+    return{
+        selectButton: ""
+    }
+  }
 }
 </script>
 
