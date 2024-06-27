@@ -9,9 +9,9 @@
 
           <div class="div-input">
             <ul>
-                <button class="btn" type="button" @click="this.formData.role = 'GESTAO'">GESTÃO</button>
-                <button class="btn" type="button" @click="this.formData.role = 'DEGP'">DEGP</button>
-                <button class="btn" type="button" @click="this.formData.role = 'RACI'">RACI</button>
+                <button class="btn" type="button" :class="{active: this.formData.role==='GESTAO'?true:false}" @click="this.formData.role = 'GESTAO'">GESTÃO</button>
+                <button class="btn" type="button" :class="{active: this.formData.role==='DEGP'?true:false}" @click="this.formData.role = 'DEGP'">DEGP</button>
+                <button class="btn" type="button" :class="{active: this.formData.role==='RACI'?true:false}" @click="this.formData.role = 'RACI'">RACI</button>
             </ul>
 
                 <input type="text" placeholder="Usuário" v-model="this.formData.username" required>
@@ -43,7 +43,10 @@ export default {
             cpf: "",
             password: "",
             role: ""
-        }
+        },
+        managerActive: false,
+        degpActive: false,
+        raciActive: false
     }
   },
   methods:{ 

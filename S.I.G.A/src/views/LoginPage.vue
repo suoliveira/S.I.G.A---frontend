@@ -17,7 +17,7 @@
             </div>
           </div>
 
-          <button type="submit">Entrar</button>
+          <button type="submit" @click="login()">Entrar</button>
         </form>
       </div>
 
@@ -41,8 +41,16 @@ export default {
     }
   },
   methods: {
-    async register(){
-
+    async login(){
+      try {
+        const response = await axios.post('/login', this.formData)
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("userId", response.data.user.id)
+        this.$router.push({name: 'qrCodeScreen'})
+      } catch (error) {
+        console.log(error)
+        console.log(error.response.data)
+      }
     }
   }
 };

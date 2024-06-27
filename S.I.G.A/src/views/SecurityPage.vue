@@ -21,9 +21,12 @@
                     <td>{{visitor.user[0].cpf}}</td>
                     <td>{{visitor.date}}</td>
                     <td>{{visitor.isinside==true?"entrada":"saída"}}</td>
-        
-                    <td>
-                        <button class="btn-remover">Remover</button>
+                    
+                    <td v-if="visitor.isinside==true">
+                        <button class="btn-remover" @click="removeVisitor(visitor.user[0]._id)">Registrar saída</button>
+                    </td>
+                    <td v-else>
+                        <button style="display: none;"></button>
                     </td>
                 </tr>
             </table>
@@ -54,6 +57,10 @@ export default {
             const response = await axios.get("/temporaryAccess")
             this.visitors = response.data.access
             console.log(this.visitors)
+        }, 
+        async removeVisitor(id){
+            await axios.delete(`/temporaryAccess/${id}`)
+            this.getVisitors()
         }
     },
     mounted(){

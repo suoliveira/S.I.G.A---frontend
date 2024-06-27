@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <input v-model="text" placeholder="Enter text" />
-    <button @click="generateQRCode">Generate QR Code</button>
     <canvas ref="qrcodeCanvas"></canvas>
   </div>
 </template>
@@ -11,19 +9,18 @@ import QRCode from 'qrcode'
 
 export default {
    name: 'QrCodePage',
-  data() {
-    return {
-      text: ''
-    }
-  },
   methods: {
     generateQRCode() {
+      const code = `{id:"${localStorage.getItem('userId')}",token:"${localStorage.getItem('token')}"}`
       const canvas = this.$refs.qrcodeCanvas
-      QRCode.toCanvas(canvas, this.text, {width: 400, height: 400},function (error) {
+      QRCode.toCanvas(canvas, code, {width: 400, height: 400},function (error) {
         if (error) console.error(error)
         console.log('QR code generated!')
       })
     }
+  },
+  mounted() {
+    this.generateQRCode()
   }
 }
 </script>
