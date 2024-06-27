@@ -20,7 +20,7 @@
                     <td>{{employee.role}}</td>
             
                     <td>
-                        <button class="btn-remover">Remover</button>
+                        <button class="btn-remover" @click="deleteEmployee(employee._id)">Editar</button>
                     </td>
                 </tr>
             </table>
@@ -51,6 +51,11 @@ export default {
             const response = await axios.get("/adm")
             this.employees = response.data.users
             console.log(this.employees)
+        },
+
+        async deleteEmployee(id){
+            await axios.delete(`/adm/${id}`)
+            this.getEmployees()
         }
     },
     mounted(){
