@@ -1,5 +1,6 @@
 <template>
     <div class="raci-register">
+    <NavBarComponent :links="navLinks"></NavBarComponent>
     <section>
       <div class="div-left">
         <form @submit.prevent="handleSubmit">
@@ -25,16 +26,25 @@
 <script>
 import axios from '../services/api';
 import{toast} from "vue3-toastify";
-import 'vue3-toastify/dist/index.css'
+import 'vue3-toastify/dist/index.css';
+import NavBarComponent from '@/components/NavBarComponent.vue';
 
 export default {
     name: 'SecurityRegisterPage',
+    components: {
+        NavBarComponent
+    },
     data() {
         return {
             formData: {
                 name: '',
                 cpf: '',
-            }
+            },
+            navLinks: [
+                { text: 'Cadastrar', to: "/registrar-visitante" },
+                { text: 'Acessos', to: "/guarita" },
+                { text: 'QrCode', to: "/acesso" }
+            ]
         }
     },
     methods: {

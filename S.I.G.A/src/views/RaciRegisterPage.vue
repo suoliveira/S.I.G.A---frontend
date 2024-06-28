@@ -29,7 +29,7 @@
 <script>
 import axios from '../services/api';
 import{toast} from "vue3-toastify";
-import 'vue3-toastify/dist/index.css'
+import 'vue3-toastify/dist/index.css';
 import NavBarComponent from '@/components/NavBarComponent.vue';
 
 export default {
@@ -46,7 +46,7 @@ export default {
                 course: '',
                 password: ''
             },
-             navLinks: [
+            navLinks: [
                 { text: 'Lista', to: "/listar-alunos" },
                 { text: 'Cadastrar', to: "/registrar-raci" },
                 { text: 'Acessos', to: "/raci" },
