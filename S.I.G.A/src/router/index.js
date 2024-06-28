@@ -10,6 +10,7 @@ import SecurityRegisterPage from '@/views/SecurityRegisterPage.vue';
 import AdmPage from '@/views/AdmPage.vue';
 import AdmRegisterPage from '@/views/AdmRegisterPage.vue';
 import QrCodePage from '@/views/QrCodePage.vue';
+import { jwtDecode } from 'jwt-decode';
 
 
 const routes = [
@@ -22,51 +23,61 @@ const routes = [
     name: 'degpScreen',
     path: '/degp',
     component: DegpPage,
+    meta: { requiresAuth: true, roles: ['DEGP'] }
   },
   {
     name: 'degpRegisterScreen',
     path: '/registrar-degp',
     component: DegpRegisterPage,
+    meta: { requiresAuth: true, roles: ['DEGP'] }
   },
   {
     name: 'managementScreen',
     path: '/gestao',
     component: ManagementPage,
+    meta: { requiresAuth: true, roles: ['GESTAO'] }
   },
   {
     name: 'raciScreen',
     path: '/raci',
     component: RaciPage,
+    meta: { requiresAuth: true, roles: ['RACI'] }
   },
   {
     name: 'raciRegisterScreen',
     path: '/registrar-raci',
     component: RaciRegisterPage,
+    meta: { requiresAuth: true, roles: ['RACI'] }
   },
   {
     name: 'securityScreen',
     path: '/guarita',
     component: SecurityPage,
+    meta: { requiresAuth: true, roles: ['SEGURANCA'] }
   },
   {
     name: 'securityRegisterScreen',
     path: '/registrar-visitante',
     component: SecurityRegisterPage,
+    meta: { requiresAuth: true, roles: ['SEGURANCA'] }
   },
   {
     name: 'admScreen',
     path: '/administracao',
     component: AdmPage,
+    meta: { requiresAuth: true, roles: ['ADMIN'] }
   },
   {
     name: "admRegisterScreen",
     path: "/registrar-administracao",
     component: AdmRegisterPage,
+    meta: { requiresAuth: true, roles: ['ADMIN'] }
   }, 
   {
     name: 'qrCodeScreen',
     path: '/acesso',
     component: QrCodePage,
+    meta: { requiresAuth: true, roles: ['ALUNO','SERVIDOR', 'DEGP', 'RACI', 'SEGURANCA', 'GESTAO'] }
   }];
 
 const router = createRouter({
@@ -74,4 +85,23 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const role = getRole()
+
+  if(to.meta.requiresAuth && !hasAccess(role, to.meta.roles)){
+    return next({name: 'loginScreen'})
+  }
+  next()
+})
+
 export default router;
+
+function getRole() {
+  const token = localStorage.getItem('token')
+  if(!token) return null
+  return jwtDecode(token).payload.role
+}
+
+function hasAccess(userRoles, requiredRoles) {
+  return requiredRoles.includes(userRoles)
+}
