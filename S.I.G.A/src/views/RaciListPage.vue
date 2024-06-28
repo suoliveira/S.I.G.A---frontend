@@ -3,7 +3,7 @@
     <div class="container">
         <div class="icone">
             <img src="../assets/image/1x/Ativo 1.png" class="logo">
-            <h2>Acesso dos Alunos</h2>
+            <h2>Alunos</h2>
         </div>
 
         <div class="tabela">
@@ -11,13 +11,13 @@
                 <tr>
                     <th>Nome</th>
                     <th>Curso</th>
-                    <th class="editar-acesso">Revogar acesso</th>
+                    <th class="editar-acesso">Apagar</th>
                 </tr>
                 <tr v-for="(student, i) in this.students" :key="i">
-                    <td>{{student.user[0].name}}</td>
-                    <td>{{student.user[0].course}}</td>
+                    <td>{{student.name}}</td>
+                    <td>{{student.course}}</td>
                      <td>
-                        <button class="btn-remover" @click="deleteStudent(student._id)">Editar</button>
+                        <button class="btn-remover" @click="deleteStudent(student._id)">Apagar</button>
                     </td>
                 </tr>
             </table>
@@ -37,7 +37,7 @@
 import axios from "../services/api"
 
 export default {
-    name: 'RaciPage',
+    name: 'RaciListPage',
     data(){
         return{
             students:[]
@@ -45,11 +45,11 @@ export default {
     },
     methods:{
         async getStudents(){
-            const response = await axios.get("/raci/access")
-            this.students = response.data.access
+            const response = await axios.get("/raci")
+            this.students = response.data.students
             console.log(this.students)
         }, 
-            async deleteStudent(id){
+        async deleteStudent(id){
             await axios.delete(`/raci/${id}`)
             this.getStudents()
         }

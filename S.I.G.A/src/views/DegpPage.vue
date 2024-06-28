@@ -12,23 +12,13 @@
                     <th>Nome</th> 
                     <th>Data</th>
                     <th>Acesso</th>
-                    <th class="editar-acesso">Revogar acesso</th>
                 </tr>
                 <tr v-for="(employee, i) in this.employees" :key="i">
                     <td>{{employee.user[0].name}}</td>
                     <td>{{employee.date}}</td>
                     <td>{{employee.isinside==true?"entrada":"saida"}}</td>
-                     <td>
-                        <button class="btn-remover" @click="deleteEmployee(employee._id)">Editar</button>
-                    </td>
                 </tr>
             </table>
-        </div>
-
-        <div class="adicionar">
-            <router-link to="registrar-degp"> 
-                <button class="btn-adicionar"><img src="../assets/image/icone-adicionar-botao.png" class="img-adicionar"></button>
-            </router-link>
         </div>
     </div>
 </div>
@@ -51,11 +41,6 @@ export default {
             this.employees = response.data.access
             console.log(this.employees)
         },
-        
-        async deleteEmployee(id){
-            await axios.delete(`/adm/${id}`)
-            this.getEmployees()
-        }
     }, 
     mounted(){
         this.getEmployees()
@@ -123,7 +108,7 @@ h2{
 
 .tabela{
     background-color: #fff;
-    border-radius: 20px 20px 0 0 ;
+    border-radius: 20px;
     padding: 30px;
     width: 100%;           
     height: 500px;

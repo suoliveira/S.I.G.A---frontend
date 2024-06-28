@@ -2,9 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '@/views/LoginPage.vue';
 import DegpPage from '@/views/DegpPage.vue';
 import DegpRegisterPage from '@/views/DegpRegisterPage.vue';
+import DegpListPage from '@/views/DegpListPage.vue';
 import ManagementPage from '@/views/ManagementPage.vue';
 import RaciPage from '@/views/RaciPage.vue';
 import RaciRegisterPage from '@/views/RaciRegisterPage.vue';
+import RaciListPage from '@/views/RaciListPage.vue';
 import SecurityPage from '@/views/SecurityPage.vue';
 import SecurityRegisterPage from '@/views/SecurityRegisterPage.vue';
 import AdmPage from '@/views/AdmPage.vue';
@@ -32,6 +34,12 @@ const routes = [
     meta: { requiresAuth: true, roles: ['DEGP'] }
   },
   {
+    name: 'degpListScreen',
+    path: '/listar-servidores',
+    component: DegpListPage,
+    meta: { requiresAuth: true, roles: ['DEGP'] }
+  },
+  {
     name: 'managementScreen',
     path: '/gestao',
     component: ManagementPage,
@@ -47,6 +55,12 @@ const routes = [
     name: 'raciRegisterScreen',
     path: '/registrar-raci',
     component: RaciRegisterPage,
+    meta: { requiresAuth: true, roles: ['RACI'] }
+  },
+  {
+    name: 'raciListScreen',
+    path: '/listar-alunos',
+    component: RaciListPage,
     meta: { requiresAuth: true, roles: ['RACI'] }
   },
   {

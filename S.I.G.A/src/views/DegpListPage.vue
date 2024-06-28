@@ -3,28 +3,28 @@
     <div class="container">
         <div class="icone">
             <img src="../assets/image/1x/Ativo 1.png" class="logo">
-            <h2>Acesso dos Alunos</h2>
+            <h2>Servidores</h2>
         </div>
 
         <div class="tabela">
             <table>
                 <tr>
                     <th>Nome</th>
-                    <th>Curso</th>
-                    <th class="editar-acesso">Revogar acesso</th>
+                    <th>CPF</th>
+                    <th class="editar-acesso">Apagar</th>
                 </tr>
-                <tr v-for="(student, i) in this.students" :key="i">
-                    <td>{{student.user[0].name}}</td>
-                    <td>{{student.user[0].course}}</td>
+                <tr v-for="(employee, i) in this.employees" :key="i">
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.cpf}}</td>
                      <td>
-                        <button class="btn-remover" @click="deleteStudent(student._id)">Editar</button>
+                        <button class="btn-remover" @click="deleteEmployee(employee._id)">Apagar</button>
                     </td>
                 </tr>
             </table>
         </div>
 
         <div class="adicionar">
-            <router-link to="registrar-raci"> 
+            <router-link to="registrar-degp"> 
                 <button class="btn-adicionar"><img src="../assets/image/icone-adicionar-botao.png" class="img-adicionar"></button>
             </router-link>
         </div>
@@ -37,25 +37,25 @@
 import axios from "../services/api"
 
 export default {
-    name: 'RaciPage',
+    name: 'DegpListPage',
     data(){
         return{
-            students:[]
+            employees:[]
         }
     },
     methods:{
-        async getStudents(){
-            const response = await axios.get("/raci/access")
-            this.students = response.data.access
-            console.log(this.students)
+        async getEmployees(){
+            const response = await axios.get("/degp")
+            this.employees = response.data.employees
+            console.log(this.employees)
         }, 
-            async deleteStudent(id){
-            await axios.delete(`/raci/${id}`)
-            this.getStudents()
+        async deleteEmployee(id){
+            await axios.delete(`/degp/${id}`)
+            this.getEmployees()
         }
     },
     mounted(){
-        this.getStudents()
+        this.getEmployees()
     }
 }
 </script>

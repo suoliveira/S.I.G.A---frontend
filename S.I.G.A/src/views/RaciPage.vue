@@ -22,12 +22,6 @@
                 </tr>
             </table>
         </div>
-
-        <div class="adicionar">
-            <router-link to="registrar-raci"> 
-                <button class="btn-adicionar"><img src="../assets/image/icone-adicionar-botao.png" class="img-adicionar"></button>
-            </router-link>
-        </div>
     </div>
 </div>
   
@@ -49,7 +43,7 @@ export default {
             this.students = response.data.access
             console.log(this.students)
         }, 
-            async deleteStudent(id){
+        async deleteStudent(id){
             await axios.delete(`/raci/${id}`)
             this.getStudents()
         }
@@ -120,7 +114,7 @@ h2{
 
 .tabela{
     background-color: #fff;
-    border-radius: 20px 20px 0 0 ;
+    border-radius: 20px ;
     padding: 30px;
     width: 100%;           
     height: 500px;

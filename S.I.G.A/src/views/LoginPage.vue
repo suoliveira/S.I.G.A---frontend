@@ -30,6 +30,7 @@
 
 <script>
 import axios from "../services/api"
+import { jwtDecode} from 'jwt-decode'
 export default {
   name: 'LoginPage',
   data() {
@@ -46,7 +47,21 @@ export default {
         const response = await axios.post('/login', this.formData)
         localStorage.setItem("token", response.data.token)
         localStorage.setItem("userId", response.data.user.id)
-        this.$router.push({name: 'qrCodeScreen'})
+        const role = jwtDecode(response.data.token).payload.role
+        switch(role) {
+          case 'DEGP':
+            return this.$router.push({name: 'degpScreen'})
+          case 'GESTAO':
+            return this.$router.push({name: 'managementScreen'})
+          case 'RACI':
+            return this.$router.push({name: 'raciScreen'})
+          case 'SEGURANCA':
+            return this.$router.push({name: 'securityScreen'})
+          case 'ADMIN':
+            return this.$router.push({name: 'admScreen'})
+          default:
+            return this.$router.push({name: 'qrCodeScreen'})
+        }
       } catch (error) {
         console.log(error)
         console.log(error.response.data)
