@@ -11,14 +11,14 @@
                 <tr>
                     <th>Nome</th>
                     <th>Curso</th>
-                    <th>Data</th>
-                    <th>Acesso</th>
+                    <th class="editar-acesso">Revogar acesso</th>
                 </tr>
                 <tr v-for="(student, i) in this.students" :key="i">
                     <td>{{student.user[0].name}}</td>
                     <td>{{student.user[0].course}}</td>
-                    <td>{{student.date}}</td>
-                    <td>{{student.isinside==true?"entrada":"saida"}}</td>
+                     <td>
+                        <button class="btn-remover" @click="deleteStudent(student._id)">Editar</button>
+                    </td>
                 </tr>
             </table>
         </div>
