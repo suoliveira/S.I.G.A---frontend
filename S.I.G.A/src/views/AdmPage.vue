@@ -12,7 +12,7 @@
                     <th>Nome</th>
                     <th>CPF</th>
                     <th>Role</th>
-                    <th class="editar-acesso">Editar acesso</th>
+                    <th class="editar-acesso">Apagar</th>
                 </tr>
                 <tr v-for="(employee,i) in this.employees" :key="i" >
                     <td>{{employee.name}}</td>
