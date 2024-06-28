@@ -1,5 +1,6 @@
 <template>
 <div class="management-page">
+    <NavBarComponent :links="navLinks"></NavBarComponent>
     <div class="container">
         <div class="icone">
             <img src="../assets/image/1x/Ativo 1.png" class="logo">
@@ -29,12 +30,23 @@
 
 <script>
 import axios from "../services/api"
+import NavBarComponent from '@/components/NavBarComponent.vue';
 
 export default {
     name: 'ManagementPage',
+    components: {
+        NavBarComponent
+    },
     data(){
         return{
-            users:[]
+            users:[],
+        managerActive: false,
+        degpActive: false,
+        raciActive: false,
+        navLinks: [
+            { text: 'Lista', to: "/gestao" },
+            { text: 'QrCode', to: "/acesso" },
+        ]  
         }
     },
     methods:{
@@ -108,7 +120,7 @@ h2{
 
 .tabela{
     background-color: #fff;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 20px;
     padding: 30px;
     width: 100%;           
     height: 500px;

@@ -1,5 +1,6 @@
 <template>
-<div class="raci-page">
+<div class="raciList-page">
+    <NavBarComponent :links="navLinks"></NavBarComponent>
     <div class="container">
         <div class="icone">
             <img src="../assets/image/1x/Ativo 1.png" class="logo">
@@ -22,12 +23,6 @@
                 </tr>
             </table>
         </div>
-
-        <div class="adicionar">
-            <router-link to="registrar-raci"> 
-                <button class="btn-adicionar"><img src="../assets/image/icone-adicionar-botao.png" class="img-adicionar"></button>
-            </router-link>
-        </div>
     </div>
 </div>
   
@@ -35,12 +30,22 @@
 
 <script>
 import axios from "../services/api"
+import NavBarComponent from '@/components/NavBarComponent.vue';
 
 export default {
     name: 'RaciListPage',
+    components: {
+        NavBarComponent
+    },
     data(){
         return{
-            students:[]
+            students:[],
+            navLinks: [
+                { text: 'Lista', to: "/listar-alunos" },
+                { text: 'Cadastrar', to: "/registrar-raci" },
+                { text: 'Acessos', to: "/raci" },
+                { text: 'QrCode', to: "/acesso" }
+            ]
         }
     },
     methods:{
@@ -72,7 +77,7 @@ export default {
     font-style: normal;
 }
 
-.raci-page{
+.raciList-page{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -120,7 +125,7 @@ h2{
 
 .tabela{
     background-color: #fff;
-    border-radius: 20px 20px 0 0 ;
+    border-radius: 20px;
     padding: 30px;
     width: 100%;           
     height: 500px;
@@ -168,31 +173,5 @@ th{
     color: #08090B;
     cursor: pointer;
 
-}
-
-.adicionar{
-    padding: 30px;
-    display: flex;
-    justify-content: right;
-    width: 100%;
-    background-color: #fff;
-    border-radius: 0 0 20px 20px;
-}
-
-.btn-adicionar{
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    transition:  0.35s ease;
-}
-
-.img-adicionar{
-    width: 40px;  
-    height: 40px; 
-}
-
-.btn-adicionar :hover{
-    transition: 0.2s;
-    transform: scale(1.2);
 }
 </style>

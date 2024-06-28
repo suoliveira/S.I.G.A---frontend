@@ -1,5 +1,6 @@
 <template>
     <div class="raci-register">
+    <NavBarComponent :links="navLinks"></NavBarComponent>
     <section>
       <div class="div-left">
         <form @submit.prevent="handleSubmit">
@@ -29,9 +30,13 @@
 import axios from '../services/api';
 import{toast} from "vue3-toastify";
 import 'vue3-toastify/dist/index.css'
+import NavBarComponent from '@/components/NavBarComponent.vue';
 
 export default {
     name: 'RaciRegisterPage',
+    components: {
+        NavBarComponent
+    },
     data() {
         return {
             formData: {
@@ -40,7 +45,13 @@ export default {
                 cpf: '',
                 course: '',
                 password: ''
-            }
+            },
+             navLinks: [
+                { text: 'Lista', to: "/listar-alunos" },
+                { text: 'Cadastrar', to: "/registrar-raci" },
+                { text: 'Acessos', to: "/raci" },
+                { text: 'QrCode', to: "/acesso" }
+            ]
         }
     },
     methods: {
@@ -132,20 +143,11 @@ input{
     color: #fff; 
     border-radius:5px ;
     margin: 10px 0; 
-
     outline: none; 
-
     font-size: 18px;
 }
 
-.input-sexo{
-    background-color: transparent;
-    padding: 20px;
-    border: none;
-    border: 2px solid #08090B;
-    border-radius:5px ;
-    font-size: 18px;
-}
+
 
 button{
     border: none;
@@ -154,7 +156,6 @@ button{
     padding: 15px;
     width: 100%;
     margin: 10px 0 0px 0px;
-
     font-size: 20px;
 }
 
@@ -178,9 +179,7 @@ button:hover a{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     color: #EA5058;
-
     background-color: #546F50;
     height: 700px;
     width: 500px;

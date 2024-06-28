@@ -105,6 +105,7 @@ section{
   display: flex;
   flex-direction: row;
   position: absolute; 
+  background-color: transparent;
 }
 
 .div-left{
@@ -117,7 +118,7 @@ section{
 }
 
 img{
-  padding: 30px 0px;
+  padding: 23px 0px;
 }
 
 

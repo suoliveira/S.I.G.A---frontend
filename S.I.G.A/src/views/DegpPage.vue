@@ -1,5 +1,6 @@
 <template>
 <div class="degp-page">
+    <NavBarComponent :links="navLinks"></NavBarComponent>
     <div class="container">
         <div class="icone">
             <img src="../assets/image/1x/Ativo 1.png" class="logo">
@@ -13,44 +14,51 @@
                     <th>Data</th>
                     <th>Acesso</th>
                 </tr>
-                <tr v-for="(employee, i) in this.employees" :key="i">
+                <tr v-for="(employee, i) in employees" :key="i">
                     <td>{{employee.user[0].name}}</td>
                     <td>{{employee.date}}</td>
-                    <td>{{employee.isinside==true?"entrada":"saida"}}</td>
+                    <td>{{employee.isinside ? "entrada" : "saida"}}</td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
-  
 </template>
 
 <script>
 import axios from "../services/api"
+import NavBarComponent from '@/components/NavBarComponent.vue';
 
 export default {
     name: 'DegpPage',
-    data(){
-        return{
-            employees:[]
+    components: {
+        NavBarComponent
+    },
+    data() {
+        return {
+            employees: [],
+            navLinks: [
+                { text: 'Lista', to: "/listar-servidores" },
+                { text: 'Cadastrar', to: "/registrar-degp" },
+                { text: 'Acessos', to: "/degp" },
+                { text: 'QrCode', to: "/acesso" }
+            ]
         }
     },
-    methods:{
-        async getEmployees(){
+    methods: {
+        async getEmployees() {
             const response = await axios.get("/degp/access")
             this.employees = response.data.access
-            console.log(this.employees)
-        },
-    }, 
-    mounted(){
+        }
+    },
+    mounted() {
         this.getEmployees()
     }
 }
 </script>
 
 <style scoped>
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -60,7 +68,7 @@ export default {
     font-style: normal;
 }
 
-.degp-page{
+.degp-page {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -68,10 +76,9 @@ export default {
     min-height: 100vh;
     width: 100vw;
     background-color: #08090B;
-
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -80,33 +87,28 @@ export default {
     width: 70%;
     background-color: #242424;
     border-radius: 20px;
-
 }
 
-.icone{
+.icone {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 30px;
-
     width: 100%;
-
     border-radius: 20px 20px 0 0;
-
     color: #fff;
     background-color: #242424;
 }
-h2{
+h2 {
     padding-left: 20px;
 }
 
-.logo{
+.logo {
     width: 50px;  
     height: 50px; 
 }
 
-
-.tabela{
+.tabela {
     background-color: #fff;
     border-radius: 20px;
     padding: 30px;
@@ -115,7 +117,7 @@ h2{
     box-sizing: border-box;  
 }
 
-.container .tabela table{
+.container .tabela table {
     width: 100%;
     height: 100;
     border-collapse: collapse;
@@ -129,7 +131,7 @@ h2{
     background-color: #faf6f6;
 }
 
-th{
+th {
     background-color: #08090B;
     border: 1px solid #ccc;
     border-color: #fff;
@@ -140,31 +142,5 @@ th{
     flex: 1; 
     text-align: left; 
     padding: 8px; 
-}
-
-.adicionar{
-    padding: 30px;
-    display: flex;
-    justify-content: right;
-    width: 100%;
-    background-color: #fff;
-    border-radius: 0 0 20px 20px;
-}
-
-.btn-adicionar{
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    transition:  0.35s ease;
-}
-
-.img-adicionar{
-    width: 40px;  
-    height: 40px; 
-}
-
-.btn-adicionar :hover{
-    transition: 0.2s;
-    transform: scale(1.2);
 }
 </style>

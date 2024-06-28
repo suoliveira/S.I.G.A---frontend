@@ -1,5 +1,6 @@
 <template>
     <div class="adm-register">
+    <NavBarComponent :links="navLinks"></NavBarComponent>
     <section>
       <div class="div-left">
         <form @submit.prevent="handleSubmit">
@@ -35,9 +36,13 @@
 import axios from '../services/api';
 import{toast} from "vue3-toastify";
 import 'vue3-toastify/dist/index.css'
+import NavBarComponent from '@/components/NavBarComponent.vue';
 
 export default {
   name: 'AdmRegisterPage',
+    components: {
+        NavBarComponent
+    },
   data(){
     return{
         formData:{
@@ -49,7 +54,11 @@ export default {
         },
         managerActive: false,
         degpActive: false,
-        raciActive: false
+        raciActive: false,
+        navLinks: [
+            { text: 'Lista', to: "/administracao" },
+            { text: 'Cadastrar', to: "/registrar-administracao" },
+        ]
     }
   },
   methods:{ 
@@ -143,7 +152,6 @@ input{
     border-radius:5px ;
     margin: 10px 0; 
     outline: none; 
-
     font-size: 18px;
 }
 
@@ -151,13 +159,10 @@ ul{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-
     width: 100%;
     height: 100%;
     margin-top: 10px;
     padding: 20px;
-
     color: #fff;
     border: 2px solid #08090B;
     background-color: #242424;
