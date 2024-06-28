@@ -13,12 +13,16 @@
                     <th>Curso</th>
                     <th>Data</th>
                     <th>Acesso</th>
+                    <th class="editar-acesso">Revogar acesso</th>
                 </tr>
                 <tr v-for="(student, i) in this.students" :key="i">
                     <td>{{student.user[0].name}}</td>
                     <td>{{student.user[0].course}}</td>
                     <td>{{student.date}}</td>
                     <td>{{student.isinside==true?"entrada":"saida"}}</td>
+                     <td>
+                        <button class="btn-remover" @click="deleteStudent(student._id)">Editar</button>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -48,6 +52,10 @@ export default {
             const response = await axios.get("/raci/access")
             this.students = response.data.access
             console.log(this.students)
+        }, 
+            async deleteStudent(id){
+            await axios.delete(`/raci/${id}`)
+            this.getStudents()
         }
     },
     mounted(){
@@ -148,6 +156,22 @@ th{
     flex: 1; 
     text-align: left; 
     padding: 8px; 
+}
+
+.btn-remover{
+    width: 100%;
+    height: 30px;
+    border: none;
+    background-color: #546F50;
+    color: white;
+    border-radius: 20px;
+}
+.btn-remover:hover{
+    transition: 0.2s;
+    background-color: #EA5058;
+    color: #08090B;
+    cursor: pointer;
+
 }
 
 .adicionar{

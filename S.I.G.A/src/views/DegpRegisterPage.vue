@@ -30,6 +30,9 @@
 
 <script>
 import axios from '../services/api';
+import{toast} from "vue3-toastify";
+import 'vue3-toastify/dist/index.css'
+
 export default {
     name: 'DegpRegisterPage',
     data() {
@@ -44,7 +47,12 @@ export default {
     },
     methods:{
         async register(){
-            await axios.post('/degp', this.formData);
+            try{
+                await axios.post('/degp', this.formData);
+                toast.success("Cadastro realizado!");
+            }catch(error){
+                toast.error("Ocorreu um erro")
+            }      
         }
     }
 }
