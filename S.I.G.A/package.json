@@ -10,11 +10,8 @@
   },
   "dependencies": {
     "axios": "^1.7.2",
-<<<<<<< HEAD
     "jwt-decode": "^4.0.0",
-=======
     "primevue": "^4.0.0-rc.2",
->>>>>>> c77714624c869da116b4c8a978a1309fa1ea859e
     "qrcode": "^1.5.3",
     "vue": "^3.4.29",
     "vue-router": "^4.4.0",
