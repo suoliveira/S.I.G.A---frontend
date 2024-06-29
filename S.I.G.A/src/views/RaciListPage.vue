@@ -2,9 +2,12 @@
 <div class="raciList-page">
     <NavBarComponent :links="navLinks"></NavBarComponent>
     <div class="container">
-        <div class="icone">
-            <img src="../assets/image/1x/Ativo 1.png" class="logo">
-            <h2>Alunos</h2>
+        <div class="table-header">
+            <div class="icone">
+                <img src="../assets/image/1x/Ativo 1.png" class="logo">
+                <h2>Alunos</h2>
+            </div>
+            <input type="text" class="search" v-model="searchQuery" placeholder="Buscar...">
         </div>
 
         <div class="tabela">
@@ -14,7 +17,7 @@
                     <th>Curso</th>
                     <th class="editar-acesso">Apagar</th>
                 </tr>
-                <tr v-for="(student, i) in this.students" :key="i">
+                <tr v-for="(student, i) in filteredStudents" :key="i">
                     <td>{{student.name}}</td>
                     <td>{{student.course}}</td>
                      <td>
@@ -45,7 +48,8 @@ export default {
                 { text: 'Cadastrar', to: "/registrar-raci" },
                 { text: 'Acessos', to: "/raci" },
                 { text: 'QrCode', to: "/acesso" }
-            ]
+            ],
+            searchQuery: ""
         }
     },
     methods:{
@@ -61,6 +65,14 @@ export default {
     },
     mounted(){
         this.getStudents()
+    },
+    computed:{
+        filteredStudents(){
+            return this.students.filter(student => 
+                student.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                student.course.toLowerCase().includes(this.searchQuery.toLowerCase())
+            )
+        }
     }
 }
 </script>
@@ -86,6 +98,26 @@ export default {
     width: 100vw;
     background-color: #08090B;
 
+}
+
+.table-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.search{
+    margin-right: 30px;
+    background-color: transparent;
+    padding: 20px;
+    padding-right: 100px;
+    border: none;
+    border: 2px solid #08090B;
+    color: #fff; 
+    border-radius:5px ;
+    outline: none; 
+    font-size: 18px;
 }
 
 .container{

@@ -2,9 +2,12 @@
 <div class="raci-page">
     <NavBarComponent :links="navLinks"></NavBarComponent>
     <div class="container">
-        <div class="icone">
-            <img src="../assets/image/1x/Ativo 1.png" class="logo">
-            <h2>Acesso dos Alunos</h2>
+        <div class="table-header">
+            <div class="icone">
+                <img src="../assets/image/1x/Ativo 1.png" class="logo">
+                <h2>Acesso dos Alunos</h2>
+            </div>
+            <input type="text" class="search" v-model="searchQuery" placeholder="Buscar...">
         </div>
 
         <div class="tabela">
@@ -15,7 +18,7 @@
                     <th>Data</th>
                     <th>Acesso</th>
                 </tr>
-                <tr v-for="(student, i) in this.students" :key="i">
+                <tr v-for="(student, i) in filteredStudents" :key="i">
                     <td>{{student.user[0].name}}</td>
                     <td>{{student.user[0].course}}</td>
                     <td>{{student.date}}</td>
@@ -45,7 +48,8 @@ export default {
                 { text: 'Cadastrar', to: "/registrar-raci" },
                 { text: 'Acessos', to: "/raci" },
                 { text: 'QrCode', to: "/acesso" }
-            ]
+            ],
+            searchQuery: ""
         }
     },
     methods:{
@@ -61,6 +65,14 @@ export default {
     },
     mounted(){
         this.getStudents()
+    },
+    computed:{
+        filteredStudents(){
+            return this.students.filter(student => 
+                student.user[0].name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                student.user[0].course.toLowerCase().includes(this.searchQuery.toLowerCase())
+            )
+        }
     }
 }
 </script>
@@ -98,6 +110,26 @@ export default {
     background-color: #242424;
     border-radius: 20px;
 
+}
+
+.table-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.search{
+    margin-right: 30px;
+    background-color: transparent;
+    padding: 20px;
+    padding-right: 100px;
+    border: none;
+    border: 2px solid #08090B;
+    color: #fff; 
+    border-radius:5px ;
+    outline: none; 
+    font-size: 18px;
 }
 
 .icone{

@@ -2,9 +2,12 @@
 <div class="adm-page">
     <NavBarComponent :links="navLinks"></NavBarComponent>
     <div class="container">
-        <div class="icone">
-            <img src="../assets/image/1x/Ativo 1.png" class="logo">
-            <h2>Servidores</h2>
+        <div class="table-header">
+            <div class="icone">
+                <img src="../assets/image/1x/Ativo 1.png" class="logo">
+                <h2>Servidores</h2>
+            </div>
+            <input type="text" class="search" v-model="searchQuery" placeholder="Buscar...">
         </div>
 
         <div class="tabela">
@@ -15,13 +18,13 @@
                     <th>Role</th>
                     <th class="editar-acesso">Apagar</th>
                 </tr>
-                <tr v-for="(employee,i) in this.employees" :key="i" >
+                <tr v-for="(employee,i) in filteredEmployees" :key="i" >
                     <td>{{employee.name}}</td>
                     <td>{{employee.cpf}}</td>
                     <td>{{employee.role}}</td>
             
                     <td>
-                        <button class="btn-remover" @click="deleteEmployee(employee._id)">Editar</button>
+                        <button class="btn-remover" @click="deleteEmployee(employee._id)">Apagar</button>
                     </td>
                 </tr>
             </table>
@@ -47,7 +50,8 @@ export default {
             navLinks: [
                 { text: 'Lista', to: "/administracao" },
                 { text: 'Cadastrar', to: "/registrar-administracao" },
-            ]
+            ],
+            searchQuery: ""
         }
     },
     methods:{
@@ -64,6 +68,15 @@ export default {
     },
     mounted(){
         this.getEmployees()
+    },
+    computed:{
+        filteredEmployees(){
+            return this.employees.filter(employee => 
+                employee.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                employee.cpf.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                employee.role.toLowerCase().includes(this.searchQuery.toLowerCase())
+            )
+        }
     }
 }
 </script>
@@ -101,6 +114,26 @@ export default {
     background-color: #242424;
     border-radius: 20px;
 
+}
+
+.table-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.search{
+    margin-right: 30px;
+    background-color: transparent;
+    padding: 20px;
+    padding-right: 100px;
+    border: none;
+    border: 2px solid #08090B;
+    color: #fff; 
+    border-radius:5px ;
+    outline: none; 
+    font-size: 18px;
 }
 
 .icone{

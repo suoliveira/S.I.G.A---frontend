@@ -2,9 +2,12 @@
 <div class="management-page">
     <NavBarComponent :links="navLinks"></NavBarComponent>
     <div class="container">
-        <div class="icone">
-            <img src="../assets/image/1x/Ativo 1.png" class="logo">
-            <h2>Acessos Gerais</h2>
+        <div class="table-header">
+            <div class="icone">
+                <img src="../assets/image/1x/Ativo 1.png" class="logo">
+                <h2>Acessos Gerais</h2>
+            </div>
+            <input type="text" class="search" v-model="searchQuery" placeholder="Buscar...">
         </div>
 
         <div class="tabela">
@@ -15,7 +18,7 @@
                     <th>Acesso</th>
                     <th>Tipo</th>
                 </tr>
-                <tr v-for="(user, i) in this.users" :key="i">
+                <tr v-for="(user, i) in filteredUsers" :key="i">
                     <td>{{user.user[0].name}}</td>
                     <td>{{user.date}}</td>
                     <td>{{user.isinside==true?"entrada":"saida"}}</td>
@@ -40,13 +43,14 @@ export default {
     data(){
         return{
             users:[],
-        managerActive: false,
-        degpActive: false,
-        raciActive: false,
-        navLinks: [
-            { text: 'Lista', to: "/gestao" },
-            { text: 'QrCode', to: "/acesso" },
-        ]  
+            managerActive: false,
+            degpActive: false,
+            raciActive: false,
+            navLinks: [
+                { text: 'Lista', to: "/gestao" },
+                { text: 'QrCode', to: "/acesso" },
+            ],
+            searchQuery: ""  
         }
     },
     methods:{
@@ -58,6 +62,15 @@ export default {
     },
     mounted(){
         this.getUsers()
+    },
+    computed:{
+        filteredUsers(){
+            return this.users.filter(user => 
+                user.user[0].name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                user.date.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                user.user[0].role.toLowerCase().includes(this.searchQuery.toLowerCase())
+            )
+        }
     }
 }
 </script>
@@ -95,6 +108,26 @@ export default {
     background-color: #242424;
     border-radius: 20px;
 
+}
+
+.table-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.search{
+    margin-right: 30px;
+    background-color: transparent;
+    padding: 20px;
+    padding-right: 100px;
+    border: none;
+    border: 2px solid #08090B;
+    color: #fff; 
+    border-radius:5px ;
+    outline: none; 
+    font-size: 18px;
 }
 
 .icone{

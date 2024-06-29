@@ -2,9 +2,12 @@
 <div class="degpList-page">
     <NavBarComponent :links="navLinks"></NavBarComponent>
     <div class="container">
-        <div class="icone">
-            <img src="../assets/image/1x/Ativo 1.png" class="logo">
-            <h2>Servidores</h2>
+        <div class="table-header">
+            <div class="icone">
+                <img src="../assets/image/1x/Ativo 1.png" class="logo">
+                <h2>Servidores</h2>
+            </div>
+            <input type="text" class="search" v-model="searchQuery" placeholder="Buscar...">
         </div>
 
         <div class="tabela">
@@ -14,7 +17,7 @@
                     <th>CPF</th>
                     <th class="editar-acesso">Apagar</th>
                 </tr>
-                <tr v-for="(employee, i) in this.employees" :key="i">
+                <tr v-for="(employee, i) in filteredEmployees" :key="i">
                     <td>{{employee.name}}</td>
                     <td>{{employee.cpf}}</td>
                      <td>
@@ -45,7 +48,8 @@ export default {
                 { text: 'Cadastrar', to: "/registrar-degp" },
                 { text: 'Acessos', to: "/degp" },
                 { text: 'QrCode', to: "/acesso" }
-            ]
+            ],
+            searchQuery: ""
         }
     },
     methods:{
@@ -61,6 +65,14 @@ export default {
     },
     mounted(){
         this.getEmployees()
+    },
+    computed:{
+        filteredEmployees(){
+            return this.employees.filter(employee => 
+                employee.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                employee.cpf.toLowerCase().includes(this.searchQuery.toLowerCase())
+            )
+        }
     }
 }
 </script>

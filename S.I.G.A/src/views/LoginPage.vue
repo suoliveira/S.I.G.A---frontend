@@ -31,6 +31,9 @@
 <script>
 import axios from "../services/api"
 import { jwtDecode} from 'jwt-decode'
+import{toast} from "vue3-toastify";
+import 'vue3-toastify/dist/index.css'
+
 export default {
   name: 'LoginPage',
   data() {
@@ -63,8 +66,8 @@ export default {
             return this.$router.push({name: 'qrCodeScreen'})
         }
       } catch (error) {
-        console.log(error)
-        console.log(error.response.data)
+        console.log(error.response.data.error)
+        toast.error(error.response.data.error)
       }
     }
   }
