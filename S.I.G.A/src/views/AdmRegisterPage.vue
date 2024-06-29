@@ -160,9 +160,9 @@ input{
 
 .buttons {
     margin-top: 13px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Duas colunas com largura igual */
-  gap: 10px; /* Espaçamento entre os botões */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; 
 }
 
 .btn{
@@ -175,8 +175,8 @@ input{
 }
 
 .btn {
-  width: 100%; /* Garante que os botões ocupem toda a largura da coluna */
-  padding: 10px; /* Espaçamento interno dos botões */
+  width: 100%; 
+  padding: 10px; 
 }
 
 .btn.active{

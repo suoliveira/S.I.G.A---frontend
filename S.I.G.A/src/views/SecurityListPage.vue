@@ -5,7 +5,7 @@
         <div class="table-header">
             <div class="icone">
                 <img src="../assets/image/1x/Ativo 1.png" class="logo">
-                <h2>Acesso dos Visitantes</h2>
+                <h2>Visitantes</h2>
             </div>
             <input type="text" class="search" v-model="searchQuery" placeholder="Buscar...">
         </div>
@@ -31,7 +31,7 @@
         </div>
     </div>
 </div>
-<canvas style="display: none;" ref="qrcodeCanvas"></canvas>
+<canvas style="display:none;" ref="qrcodeCanvas"></canvas>
 </template>
 
 <script>
@@ -67,7 +67,7 @@ export default {
             const code = `{id:"${response.data.userId}",token:"${response.data.token}"}`
             const canvas = this.$refs.qrcodeCanvas;
             QRCode.toCanvas(canvas, code, {width: 400, height: 400})
-            const dataUrl = canvas.toDataURL(); // Converte o canvas em uma URL de dados de imagem
+            const dataUrl = canvas.toDataURL(); 
             const windowPrint = window.open('', '_blank');
             windowPrint.document.write(`<html><head><title>Imprimir QR Code</title></head><body><img src="${dataUrl}" onload="window.print();window.close()" /></body></html>`);
             windowPrint.document.close();
@@ -135,9 +135,9 @@ export default {
     padding: 20px;
     padding-right: 100px;
     border: none;
-    border: 2px solid #08090B;
+    border: 2px solid #666970;
     color: #fff; 
-    border-radius:5px ;
+    border-radius:20px ;
     outline: none; 
     font-size: 18px;
 }
