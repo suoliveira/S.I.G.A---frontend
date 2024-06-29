@@ -9,11 +9,12 @@
           </div>
 
           <div class="div-input">
-            <ul>
-                <button class="btn" type="button" :class="{active: this.formData.role==='GESTAO'?true:false}" @click="this.formData.role = 'GESTAO'">GESTÃO</button>
-                <button class="btn" type="button" :class="{active: this.formData.role==='DEGP'?true:false}" @click="this.formData.role = 'DEGP'">DEGP</button>
-                <button class="btn" type="button" :class="{active: this.formData.role==='RACI'?true:false}" @click="this.formData.role = 'RACI'">RACI</button>
-            </ul>
+                <div class="buttons">
+                    <button class="btn" type="button" :class="{active: this.formData.role==='GESTAO'?true:false}" @click="this.formData.role = 'GESTAO'">GESTÃO</button>
+                    <button class="btn" type="button" :class="{active: this.formData.role==='DEGP'?true:false}" @click="this.formData.role = 'DEGP'">DEGP</button>
+                    <button class="btn" type="button" :class="{active: this.formData.role==='RACI'?true:false}" @click="this.formData.role = 'RACI'">RACI</button>
+                    <button class="btn" type="button" :class="{active: this.formData.role==='SEGURANCA'?true:false}" @click="this.formData.role = 'SEGURANCA'">SEGURANÇA</button>
+                </div>
 
                 <input type="text" placeholder="Usuário" v-model="this.formData.username" required>
                 <input type="text" placeholder="Nome completo" v-model="this.formData.name" required>
@@ -55,6 +56,7 @@ export default {
         managerActive: false,
         degpActive: false,
         raciActive: false,
+        securityActive: false,
         navLinks: [
             { text: 'Lista', to: "/administracao" },
             { text: 'Cadastrar', to: "/registrar-administracao" },
@@ -102,6 +104,7 @@ section{
     position: absolute; 
     background-color: transparent;
 }
+
 .div-left{
     display: flex;
     flex-direction: column;
@@ -155,18 +158,11 @@ input{
     font-size: 18px;
 }
 
-ul{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    margin-top: 10px;
-    padding: 20px;
-    color: #fff;
-    border: 2px solid #08090B;
-    background-color: #242424;
-    border-radius: 4px;
+.buttons {
+    margin-top: 13px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Duas colunas com largura igual */
+  gap: 10px; /* Espaçamento entre os botões */
 }
 
 .btn{
@@ -176,6 +172,11 @@ ul{
     width: 80px;
     padding: 10px;
     font-size: 15px;
+}
+
+.btn {
+  width: 100%; /* Garante que os botões ocupem toda a largura da coluna */
+  padding: 10px; /* Espaçamento interno dos botões */
 }
 
 .btn.active{
