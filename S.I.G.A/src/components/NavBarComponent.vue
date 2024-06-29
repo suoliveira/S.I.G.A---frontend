@@ -1,6 +1,5 @@
 <template>
     <aside>
-        <LogoComponent></LogoComponent>
         <nav class="navbar">
             <div class="inputSearch">
                 <router-link v-for="link in links" :key="link.text" :to="link.to" active-class="active">

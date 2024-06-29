@@ -8,6 +8,7 @@ import RaciPage from '@/views/RaciPage.vue';
 import RaciRegisterPage from '@/views/RaciRegisterPage.vue';
 import RaciListPage from '@/views/RaciListPage.vue';
 import SecurityPage from '@/views/SecurityPage.vue';
+import SecurityListPage from '@/views/SecurityListPage.vue';
 import SecurityRegisterPage from '@/views/SecurityRegisterPage.vue';
 import AdmPage from '@/views/AdmPage.vue';
 import AdmRegisterPage from '@/views/AdmRegisterPage.vue';
@@ -73,6 +74,12 @@ const routes = [
     name: 'securityRegisterScreen',
     path: '/registrar-visitante',
     component: SecurityRegisterPage,
+    meta: { requiresAuth: true, roles: ['SEGURANCA'] }
+  },
+  {
+    name: 'securityListScreen',
+    path: '/listar-visitantes',
+    component: SecurityListPage,
     meta: { requiresAuth: true, roles: ['SEGURANCA'] }
   },
   {

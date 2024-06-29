@@ -41,6 +41,7 @@ export default {
                 cpf: '',
             },
             navLinks: [
+                { text: 'Lista', to: "/listar-visitantes" },
                 { text: 'Cadastrar', to: "/registrar-visitante" },
                 { text: 'Acessos', to: "/guarita" },
                 { text: 'QrCode', to: "/acesso" }

@@ -112,6 +112,26 @@ export default {
 
 }
 
+.table-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.search{
+    margin-right: 30px;
+    background-color: transparent;
+    padding: 20px;
+    padding-right: 100px;
+    border: none;
+    border: 2px solid #08090B;
+    color: #fff; 
+    border-radius:5px ;
+    outline: none; 
+    font-size: 18px;
+}
+
 .icone{
     display: flex;
     align-items: center;

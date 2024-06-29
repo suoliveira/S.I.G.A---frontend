@@ -10,33 +10,37 @@
             <input type="text" class="search" v-model="searchQuery" placeholder="Buscar...">
         </div>
 
+        
         <div class="tabela">
             <table>
                 <tr>
                     <th>Nome</th>
-                    <th>CPF</th>  
-                    <th>Data</th>
-                    <th>Acesso</th>
+                    <th>CPF</th>
+                    
+                    <th class="editar-acesso">Imprimir QrCode</th>
                 </tr>
                 <tr v-for="(visitor, i) in filteredVisitors" :key="i">
-                    <td>{{visitor.user[0].name}}</td>
-                    <td>{{visitor.user[0].cpf}}</td>
-                    <td>{{visitor.date}}</td>
-                    <td>{{visitor.isinside==true?"entrada":"saída"}}</td>
+                    <td>{{visitor.name}}</td>
+                    <td>{{visitor.cpf}}</td>
+                    
+                    <td>
+                        <button class="btn-remover" @click="printOut(visitor._id)">Imprimir</button>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
-  
+<canvas style="display: none;" ref="qrcodeCanvas"></canvas>
 </template>
 
 <script>
 import axios from "../services/api";
 import NavBarComponent from '@/components/NavBarComponent.vue';
+import QRCode from 'qrcode'
 
 export default {
-    name: 'SecurityPage',
+    name: 'SecuritListPage',
     components: {
         NavBarComponent
     },
@@ -54,9 +58,19 @@ export default {
     },
     methods:{
         async getVisitors(){
-            const response = await axios.get("/temporaryAccess/access")
-            this.visitors = response.data.access
+            const response = await axios.get("/temporaryAccess")
+            this.visitors = response.data.visitors
             console.log(this.visitors)
+        }, 
+        async printOut(id){
+            const response = await axios.post(`/temporaryAccess/printout`, {userId: id})
+            const code = `{id:"${response.data.userId}",token:"${response.data.token}"}`
+            const canvas = this.$refs.qrcodeCanvas;
+            QRCode.toCanvas(canvas, code, {width: 400, height: 400})
+            const dataUrl = canvas.toDataURL(); // Converte o canvas em uma URL de dados de imagem
+            const windowPrint = window.open('', '_blank');
+            windowPrint.document.write(`<html><head><title>Imprimir QR Code</title></head><body><img src="${dataUrl}" onload="window.print();window.close()" /></body></html>`);
+            windowPrint.document.close();
         }
     },
     mounted(){
@@ -65,9 +79,8 @@ export default {
     computed:{
         filteredVisitors(){
             return this.visitors.filter(visitor => 
-                visitor.user[0].name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                visitor.user[0].cpf.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                visitor.date.toLowerCase().includes(this.searchQuery.toLowerCase())
+                visitor.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                visitor.cpf.toLowerCase().includes(this.searchQuery.toLowerCase())
             )
         }
     }
