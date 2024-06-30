@@ -21,7 +21,7 @@
                 <tr v-for="(student, i) in filteredStudents" :key="i">
                     <td>{{student.user[0].name}}</td>
                     <td>{{student.user[0].course}}</td>
-                    <td>{{student.date}}</td>
+                    <td>{{getFormattedDate(student.date)}}</td>
                     <td>{{student.isinside==true?"entrada":"saida"}}</td>
                 </tr>
             </table>
@@ -34,6 +34,7 @@
 <script>
 import axios from "../services/api"
 import NavBarComponent from '@/components/NavBarComponent.vue';
+import format from '@/utils/formatDate.js'
 
 export default {
     name: 'RaciPage',
@@ -61,6 +62,10 @@ export default {
         async deleteStudent(id){
             await axios.delete(`/raci/${id}`)
             this.getStudents()
+        },
+
+        getFormattedDate(date){
+            return format(date)
         }
     },
     mounted(){
@@ -70,7 +75,8 @@ export default {
         filteredStudents(){
             return this.students.filter(student => 
                 student.user[0].name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                student.user[0].course.toLowerCase().includes(this.searchQuery.toLowerCase())
+                student.user[0].course.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                this.getFormattedDate(student.date).toLowerCase().includes(this.searchQuery.toLowerCase())
             )
         }
     }

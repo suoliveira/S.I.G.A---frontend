@@ -19,7 +19,7 @@
                 </tr>
                 <tr v-for="(employee, i) in filteredEmployees" :key="i">
                     <td>{{employee.user[0].name}}</td>
-                    <td>{{employee.date}}</td>
+                    <td>{{getFormattedDate(employee.date)}}</td>
                     <td>{{employee.isinside ? "entrada" : "saida"}}</td>
                 </tr>
             </table>
@@ -31,6 +31,7 @@
 <script>
 import axios from "../services/api"
 import NavBarComponent from '@/components/NavBarComponent.vue';
+import format from '@/utils/formatDate.js'
 
 export default {
     name: 'DegpPage',
@@ -54,6 +55,10 @@ export default {
             const response = await axios.get("/degp/access")
             this.employees = response.data.access
             console.log(this.employees)
+        },
+
+        getFormattedDate(date) {
+            return format(date)
         }
     },
     mounted() {
@@ -63,7 +68,7 @@ export default {
         filteredEmployees(){
             return this.employees.filter(employee => 
                 employee.user[0].name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                employee.date.toLowerCase().includes(this.searchQuery.toLowerCase())
+                this.getFormattedDate(employee.date).toLowerCase().includes(this.searchQuery.toLowerCase())
             )
         }
     }

@@ -21,7 +21,7 @@
                 <tr v-for="(visitor, i) in filteredVisitors" :key="i">
                     <td>{{visitor.user[0].name}}</td>
                     <td>{{visitor.user[0].cpf}}</td>
-                    <td>{{visitor.date}}</td>
+                    <td>{{getFormattedDate(visitor.date)}}</td>
                     <td>{{visitor.isinside==true?"entrada":"saída"}}</td>
                 </tr>
             </table>
@@ -34,6 +34,7 @@
 <script>
 import axios from "../services/api";
 import NavBarComponent from '@/components/NavBarComponent.vue';
+import format from '@/utils/formatDate.js';
 
 export default {
     name: 'SecurityPage',
@@ -57,6 +58,9 @@ export default {
             const response = await axios.get("/temporaryAccess/access")
             this.visitors = response.data.access
             console.log(this.visitors)
+        }, 
+        getFormattedDate(date){
+            return format(date)
         }
     },
     mounted(){
@@ -67,7 +71,7 @@ export default {
             return this.visitors.filter(visitor => 
                 visitor.user[0].name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                 visitor.user[0].cpf.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                visitor.date.toLowerCase().includes(this.searchQuery.toLowerCase())
+                this.getFormattedDate(visitor.date).toLowerCase().includes(this.searchQuery.toLowerCase())
             )
         }
     }

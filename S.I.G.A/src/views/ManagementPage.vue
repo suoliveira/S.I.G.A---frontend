@@ -20,7 +20,7 @@
                 </tr>
                 <tr v-for="(user, i) in filteredUsers" :key="i">
                     <td>{{user.user[0].name}}</td>
-                    <td>{{user.date}}</td>
+                    <td>{{getFormattedDate(user.date)}}</td>
                     <td>{{user.isinside==true?"entrada":"saida"}}</td>
                     <td>{{user.user[0].role}}</td>
                 </tr>
@@ -34,6 +34,7 @@
 <script>
 import axios from "../services/api"
 import NavBarComponent from '@/components/NavBarComponent.vue';
+import format from '@/utils/formatDate.js'
 
 export default {
     name: 'ManagementPage',
@@ -58,6 +59,10 @@ export default {
             const response = await axios.get("/manager")
             this.users = response.data.access
             console.log(this.users)
+        },
+
+        getFormattedDate(date){
+            return format(date)
         }
     },
     mounted(){
@@ -67,7 +72,7 @@ export default {
         filteredUsers(){
             return this.users.filter(user => 
                 user.user[0].name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                user.date.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                this.getFormattedDate(user.date).toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                 user.user[0].role.toLowerCase().includes(this.searchQuery.toLowerCase())
             )
         }
