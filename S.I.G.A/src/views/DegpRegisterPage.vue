@@ -10,13 +10,10 @@
 
           <div class="div-input">
                 <input type="text" placeholder="Usuário" name="username" v-model="this.formData.username" required>
-
                 <input type="text" placeholder="Nome completo" name="name" v-model="this.formData.name" required>
-
                 <input type="text" placeholder="CPF" name="cpf" v-model="this.formData.cpf" required>
-        
                 <input type="password" placeholder="Senha" v-model="this.formData.password" required>
-        
+
                 <button type="submit" name="botao" id="botao" class="botao" @click="register()">Cadastrar</button>
             </div>
         </form>

@@ -53,7 +53,7 @@ aside {
 
 .navbar a {
     font-size: 1.3rem;
-    border-radius: 24rem;
+    border-radius: 1rem;
     padding: 0.7rem;
     color: #ffffff;
     text-decoration: none;

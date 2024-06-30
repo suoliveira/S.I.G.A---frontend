@@ -113,9 +113,9 @@ export default {
     padding: 20px;
     padding-right: 100px;
     border: none;
-    border: 2px solid #08090B;
+    border: 2px solid #666970;
     color: #fff; 
-    border-radius:5px ;
+    border-radius: 20px ;
     outline: none; 
     font-size: 18px;
 }
